@@ -65,3 +65,49 @@ private:
     std::stack<int> rev, nor;
 };
 
+// 225. Implement Stack using Queues
+/**
+ * Your MyStack object will be instantiated and called as such:
+ * MyStack* obj = new MyStack();
+ * obj->push(x);
+ * int param_2 = obj->pop();
+ * int param_3 = obj->top();
+ * bool param_4 = obj->empty();
+ */
+class MyStack {
+public:
+    /** Initialize your data structure here. */
+    MyStack() {    
+    }
+    
+    /** Push element x onto stack. */
+    void push(int x) {
+        st.push(x);
+    }
+    
+    /** Removes the element on top of the stack and returns that element. */
+    int pop() {
+        // if (st.empty())
+        //     return 0;
+        int length = st.size();
+        for (; length > 1; length--) {
+            st.push(st.front());
+            st.pop();
+        }
+        int top = st.front();
+        st.pop();
+        return top;
+    }
+    
+    /** Get the top element. */
+    int top() {
+        return st.back();
+    }
+    
+    /** Returns whether the stack is empty. */
+    bool empty() {
+        return st.empty();
+    }
+private:
+    std::queue<int> st;
+};
