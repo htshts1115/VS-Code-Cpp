@@ -1,8 +1,11 @@
 #include <iostream>
 #include <algorithm>
+#include <limits.h>
 #include <vector>
 #include <queue>
 #include <stack>
+
+using namespace std;
 
 // 144. Binary Tree Preorder Traversal
 struct TreeNode {
@@ -12,9 +15,9 @@ struct TreeNode {
     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
 };
 
-class Solution {
+class RecursiveSolution {
 public:
-    std::vector<int> preorderTraversal(TreeNode* root) {
+    vector<int> preorderTraversal(TreeNode* root) {
         if (root!=NULL){
             preorder(root);
         }
@@ -27,7 +30,7 @@ public:
         preorder(root->right);
     }
 
-    std::vector<int> inorderTraversal(TreeNode* root) {
+    vector<int> inorderTraversal(TreeNode* root) {
         if (root!=NULL){
             inorder(root);
         }
@@ -40,7 +43,7 @@ public:
         inorder(root->right);
     }
 
-    std::vector<int> postorderTraversal(TreeNode* root) {
+    vector<int> postorderTraversal(TreeNode* root) {
         if (root!=NULL){
             postorder(root);
         }
@@ -53,17 +56,48 @@ public:
         printpostorder.push_back(root->val);
     }
 
+//104. Maximum Depth of Binary Tree
+    int maxDepth(TreeNode* root) {
+        if (!root)
+            return 0;
+        else
+            return (1+ max(maxDepth(root->left), maxDepth(root->right)));
+    } 
+    int maxDepth_iterative(TreeNode* root){
+        queue<TreeNode *> qlist;
+        int h = 0;
+        if (!root)
+            return 0;
+        else {
+            qlist.push(root);
+        }
+        while (!qlist.empty()){
+            int count = qlist.size();
+            for (int i = 0; i < count; i++){
+                TreeNode *temp = qlist.front();
+                if (temp->left)
+                    qlist.push(temp->left);
+                if (temp->right)
+                    qlist.push(temp->right);
+                qlist.pop();
+            }
+            h++;
+        }
+        return h;
+    }
+
 private:
-    std::vector<int> printpreorder;
-    std::vector<int> printinorder;
-    std::vector<int> printpostorder; 
+    vector<int> printpreorder;
+    vector<int> printinorder;
+    vector<int> printpostorder; 
+
 };
 
 class IterativeSolution{
 public:
-    std::vector<int> preorderTraversal(TreeNode* root){
-        std::stack<TreeNode*> S;
-        std::vector<int> V;
+    vector<int> preorderTraversal(TreeNode* root){
+        stack<TreeNode*> S;
+        vector<int> V;
         TreeNode* p = root;
         while (p || S.size()) {
             while (p) {
@@ -77,9 +111,9 @@ public:
         return V;
     }
     
-    std::vector<int> inorderTraversal(TreeNode* root) {
-        std::stack<TreeNode*> S;
-        std::vector<int> V;
+    vector<int> inorderTraversal(TreeNode* root) {
+        stack<TreeNode*> S;
+        vector<int> V;
         TreeNode* p = root;
         while (p || S.size()) {
             while (p) {
@@ -94,9 +128,9 @@ public:
         return V;
     }
 
-    std::vector<int> postorderTraversal(TreeNode* root) {
-        std::stack<TreeNode*> S;
-        std::vector<int> V;
+    vector<int> postorderTraversal(TreeNode* root) {
+        stack<TreeNode*> S;
+        vector<int> V;
         TreeNode* p = root;
         TreeNode* last = NULL;
         while (p || S.size()) {
@@ -116,5 +150,22 @@ public:
             }
         }
         return V;
+    }
+};
+
+
+class Binary_Search_tree_Solution {
+public:
+//98. Validate Binary Search Tree
+    bool isValidBST(TreeNode* root) {
+        if (!root) return true;
+        return BSTcheck(root, LONG_MIN, LONG_MAX);
+    }
+    
+    bool BSTcheck(TreeNode* p, long minv, long maxv){
+        if (!p) return true;
+        if (p->val > minv && p->val < maxv)
+            return (BSTcheck(p->left, minv, p->val) && BSTcheck(p->right, p->val, maxv));
+        else return false;
     }
 };
