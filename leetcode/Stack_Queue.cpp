@@ -3,6 +3,10 @@
 #include <vector>
 #include <queue>
 #include <stack>
+#include <algorithm>
+#include <functional>
+
+using namespace std;
 
 // 232. Implement Queue using Stacks
 /**
@@ -65,6 +69,44 @@ private:
     std::stack<int> rev, nor;
 };
 
+//215. Kth Largest Element in an Array
+class Priority_Queue {
+public:
+    template<class T>
+    struct cmp_pq{
+        bool operator() (const T& x, const T& y){
+            return x < y;
+        }
+    };
+    int findKthLargest(vector<int>& nums, int k) {
+        priority_queue<int, vector<int>, cmp_pq<int> > maxheap; //! difference with make_heap(), in triangular brackets, it should be type
+        for (int i: nums) {
+            maxheap.push(i);
+        }
+        for (int j = 0; j < k - 1;j++){
+            maxheap.pop();
+        }
+        return maxheap.top();
+    }
+};
+class Heap {
+public:
+    struct cmp{
+        bool operator()(int A, int B){
+            return A < B;
+        }
+    };
+    int findKthLargest(vector<int>& nums, int k) {
+        //make_heap(nums.begin(), nums.end(), greater<int>());   //MinHeap 
+        // make_heap(nums.begin(), nums.end(), cmp());   //! difference with prioroty_queue<>, here in round brackets it should be function parameters
+        make_heap(nums.begin(), nums.end());   //default maxheap
+        for (int j = 0; j < k - 1; j++){
+            pop_heap(nums.begin(), nums.end()-j);   //! 只维护之前是堆的部分
+        }
+        return nums[0];
+    }
+};
+
 // 225. Implement Stack using Queues
 /**
  * Your MyStack object will be instantiated and called as such:
@@ -111,3 +153,5 @@ public:
 private:
     std::queue<int> st;
 };
+
+

@@ -86,12 +86,63 @@ public:
         return h;
     }
 
+//51. N-Queens
+//求所有组合、排列 -> DFS；  求最短路径-> BFS
+//DFS -> 递归，回溯
+    vector<vector<string>> solveNQueens(int n) {
+        vector<vector<string> > res;
+        vector<string> nQueens(n,string(n,'.'));
+        solveNQueens(res,nQueens,0,n);
+        return res;
+    }
+    void solveNQueens(vector<vector<string> >&res, vector<string>& nQueens,int row,int &n)
+    {
+        if(row == n)
+        {
+            res.push_back(nQueens);
+            return;
+        }
+        for(int col = 0; col != n; ++col)
+        {
+            //isValid是用来保证每一行、每一列和对角线都没有冲突的皇后
+            if(isValid(nQueens,row,col,n))
+            {
+                nQueens[row][col] = 'Q';
+                //递归，深度优先搜索
+                solveNQueens(res,nQueens,row + 1, n);
+                //清理现场
+                nQueens[row][col] = '.';
+            }
+        }
+    }
+    bool isValid(vector<string> &nQueens,int row,int col,int &n)
+    {
+        for(int i = 0; i != row; ++i)
+        {
+            if(nQueens[i][col] == 'Q')
+                return false;
+        }
+        for(int i = row -1,j = col -1; i >=0 && j >=0;--i,--j)
+        {
+            if(nQueens[i][j] == 'Q')
+                return false;
+        }
+        for(int i = row -1,j = col + 1; i >= 0 && j <n; --i,++j)
+        {
+            if(nQueens[i][j] == 'Q')
+                return false;
+        }
+        return true;
+    }
+
 private:
     vector<int> printpreorder;
     vector<int> printinorder;
     vector<int> printpostorder; 
 
 };
+
+
 
 class IterativeSolution{
 public:

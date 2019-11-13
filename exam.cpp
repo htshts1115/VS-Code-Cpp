@@ -11,6 +11,6 @@
 using namespace std;
 
 int main(){
-    
-
+    vector<vector<int>> mat = {{0, 1,2}, {2, 3,4}};
+    cout << mat.size() << " " << mat[0].size();
 }
