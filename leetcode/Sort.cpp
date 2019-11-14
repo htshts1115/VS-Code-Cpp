@@ -1,12 +1,20 @@
-#include <iostream>
-#include <algorithm>
-#include <limits.h>
-#include <vector>
+#include <set>
 #include <queue>
 #include <stack>
+#include <vector>
+#include <string>
+#include <unordered_set>
+#include <unordered_map>
+#include <cmath>
+#include <cstdio>
+#include <cstring>
+#include <iostream>
+#include <algorithm>
+#include <functional>
 
 using namespace std;
 
+// insert sort
 void InsertSort(int a[],int n)
 {
     int i,j;
@@ -20,6 +28,8 @@ void InsertSort(int a[],int n)
             a[j+1]=temp;//找到了合适的插入点
         }
 }
+
+// shell sort
 void shellSort(int a[],int n)
 {
     int gap,i,j;
@@ -28,6 +38,8 @@ void shellSort(int a[],int n)
             for(j=i-gap;j>=0&&a[j]>a[j+gap];j-=gap)
                 swap(a[j],a[j+gap]);
 }
+
+// heap sort
 void MinHeapInsert(int a[],int i)
 {
     int j=(i-1)/2;//找到i结点的根节点
@@ -72,6 +84,7 @@ void MinHeapSort(int a[],int n)//最小堆排序获得的是递减的数组
     }
 }
 
+// quick sort
 void quickSort(int a[],int first,int last)
 {
     int i=first,j=last;
@@ -92,7 +105,7 @@ void quickSort(int a[],int first,int last)
 }
 
 
-
+// merge sort
 void mergearr(int *arr, int p, int q, int r){
     int len1 = q - p + 1;
     int len2 = r - q;
@@ -126,3 +139,15 @@ void mergeSort(int *arr, int p, int r){
     }
 
 }
+
+// 二分法
+// def binary_search(l, r):
+//     while l < r:
+//         m = l + (r - l) // 2
+//         if f(m):    # 判断找了没有，optional
+//             return m
+//         if g(m):
+//             r = m   # new range [l, m)
+//         else:
+//             l = m + 1 # new range [m+1, r)
+//     return l    # or not found
