@@ -12,6 +12,8 @@
 #include <iostream>
 #include <algorithm>
 #include <functional>
+#include <bitset>
+
 
 using namespace std;
 
@@ -56,7 +58,6 @@ class map_example{
     }
 };
 
-int main(){
 // merge
     //merge(first, first + 5, second, second + 5, v.begin(), compare);
 
@@ -66,12 +67,29 @@ int main(){
 // sort 
     // sort(起始地址,结束地址,compare函数);
 
-// unique
+// unique 去重
     // bool myfunction (int i, int j)
     // {
     // return (i==j);
     // }
     // unique(起始地址,结束地址,去重条件函数);//按照函数里面编写的规则去重，当然也可以没有第三个参数
+
+// 进制转换 八进制 hex 十进制 dec 十六进制 oct
+    // int n = 42;
+    // cout<<n<<endl;
+    // // printf中的 %o %x %d
+    // cout<<hex<<n<<endl;        // 输出 16 进制
+    // cout<<oct<<n<<endl;        // 输出 8 进制
+// 二进制
+    // bitset<n> b;	              //b有n位，每位都为0
+    // bitset<n> b(u);	          //b是unsigned long型u的一个副本
+    // bitset<n> b(s);	          //b是string对象s中含有的位串的副本
+    // bitset<n> b(s, pos, n);	  //b是s中从位置pos开始的n个位的副本
+	// bitset<8> n(15);
+	// cout<<n.to_string()<<endl; //00001111
+	// bitset<8> b(-13);        
+	// cout<<b.to_string()<<endl; //11110011 
+
 
 // hash
     // #define ull unsigned long long
@@ -79,7 +97,7 @@ int main(){
     // {
     // 	int l=strlen(S);
     // 	ull ans=0;
-    // 	int seed=27;
+    // 	int seed=31;
     // 	for(int a=0;a<l;a++)
     // 		ans=ans*seed+a[i]-'a'+1;
     // 	return ans;
@@ -114,5 +132,3 @@ int main(){
     //     return a*b/gcd(a,b);
     // };
 
-
-}

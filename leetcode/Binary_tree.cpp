@@ -14,7 +14,6 @@
 
 using namespace std;
 
-// 144. Binary Tree Preorder Traversal
 struct TreeNode {
     int val;
     TreeNode *left;
@@ -24,6 +23,7 @@ struct TreeNode {
 
 class RecursiveSolution {
 public:
+// 前序遍历
     vector<int> preorderTraversal(TreeNode* root) {
         if (root!=NULL){
             preorder(root);
@@ -36,7 +36,7 @@ public:
         preorder(root->left);
         preorder(root->right);
     }
-
+// 中序遍历
     vector<int> inorderTraversal(TreeNode* root) {
         if (root!=NULL){
             inorder(root);
@@ -49,7 +49,7 @@ public:
         printinorder.push_back(root->val);
         inorder(root->right);
     }
-
+// 后序遍历
     vector<int> postorderTraversal(TreeNode* root) {
         if (root!=NULL){
             postorder(root);
@@ -149,10 +149,9 @@ private:
 
 };
 
-
-
 class IterativeSolution{
 public:
+// 前序遍历
     vector<int> preorderTraversal(TreeNode* root){
         stack<TreeNode*> S;
         vector<int> V;
@@ -168,7 +167,7 @@ public:
         }
         return V;
     }
-    
+// 中序遍历
     vector<int> inorderTraversal(TreeNode* root) {
         stack<TreeNode*> S;
         vector<int> V;
@@ -185,7 +184,7 @@ public:
         }
         return V;
     }
-
+// 后序遍历
     vector<int> postorderTraversal(TreeNode* root) {
         stack<TreeNode*> S;
         vector<int> V;
@@ -219,7 +218,6 @@ public:
         if (!root) return true;
         return BSTcheck(root, LONG_MIN, LONG_MAX);
     }
-    
     bool BSTcheck(TreeNode* p, long minv, long maxv){
         if (!p) return true;
         if (p->val > minv && p->val < maxv)
